@@ -46,7 +46,7 @@ public final class ResponseGenerator {
         return this;
     }
 
-    public ResponseGenerator withCreativity(double creativity){
+    public ResponseGenerator withCreativity(double creativity) {
         this.creativity = creativity;
         return this;
     }

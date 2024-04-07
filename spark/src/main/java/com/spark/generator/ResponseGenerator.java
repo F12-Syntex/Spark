@@ -31,4 +31,24 @@ public final class ResponseGenerator {
         return this;
     }
 
+    public ResponseGenerator withExpectedDuring(int expectedDuration){
+        this.expectedDuration = expectedDuration;
+        return this;
+    }
+
+    public ResponseGenerator withLanguage(String language){
+        this.language = language;
+        return this;
+    }
+
+    public ResponseGenerator withCategories(String[] categories){
+        this.categories = categories;
+        return this;
+    }
+
+    public ResponseGenerator withCreativity(double creativity){
+        this.creativity = creativity;
+        return this;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.spark.generator;
 //for scalability
 import java.time.temporal.ChronoUnit;
 
+import com.spark.models.ResponseModel;
 import com.spark.parameters.Difficulty;
 
 import lombok.Data;

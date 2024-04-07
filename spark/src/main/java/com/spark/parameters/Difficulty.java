@@ -1,4 +1,4 @@
-package com.spark.generator;
+package com.spark.parameters;
 
 public enum Difficulty {
 

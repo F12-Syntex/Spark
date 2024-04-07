@@ -2,13 +2,15 @@ package com.spark.generator;
 //for scalability
 import java.time.temporal.ChronoUnit;
 
+import com.spark.parameters.Difficulty;
+
 /**
  * reponse genertor that takes in parameters through a factory paradigm and
  * returns a response model
  */
 public final class ResponseGenerator {
 
-    private final ChronoUnit timeUnit = ChronoUnit.DAYS;
+    private ChronoUnit timeUnit = ChronoUnit.DAYS;
     private Difficulty difficulty;
     private int expectedDuration; // expected duration of the project in days
     private String language;
@@ -41,8 +43,8 @@ public final class ResponseGenerator {
         return this;
     }
 
-    public ResponseGenerator withCategories(String[] categories){
-        this.categories = categories;
+    public ResponseGenerator withCategories(String... categories){
+        this.categories = categories.clone();
         return this;
     }
 
@@ -51,4 +53,8 @@ public final class ResponseGenerator {
         return this;
     }
 
+    public ResponseGenerator withTimeUnit(ChronoUnit timeUnit) {
+        this.timeUnit = timeUnit;
+        return this;
+    }
 }

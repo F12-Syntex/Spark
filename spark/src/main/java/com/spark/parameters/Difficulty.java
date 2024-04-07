@@ -10,7 +10,7 @@ public enum Difficulty {
         this.difficulty = difficulty;
     }
 
-    public double getDifficulty() {
+    public double getDifficultyWeight() {
         return difficulty;
     }
 }

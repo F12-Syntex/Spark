@@ -4,10 +4,13 @@ import java.time.temporal.ChronoUnit;
 
 import com.spark.parameters.Difficulty;
 
+import lombok.Data;
+
 /**
  * reponse genertor that takes in parameters through a factory paradigm and
  * returns a response model
  */
+@Data
 public final class ResponseGenerator {
 
     private ChronoUnit timeUnit = ChronoUnit.DAYS;
@@ -56,5 +59,10 @@ public final class ResponseGenerator {
     public ResponseGenerator withTimeUnit(ChronoUnit timeUnit) {
         this.timeUnit = timeUnit;
         return this;
+    }
+
+    public ResponseModel build() {
+        ResponseModel response = new ResponseModel(this);    
+        return response;    
     }
 }

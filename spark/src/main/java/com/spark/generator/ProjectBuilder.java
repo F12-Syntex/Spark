@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.spark.models.ProjectModel;
 
 import lombok.Data;
 
@@ -31,7 +32,7 @@ public class ProjectBuilder {
      * 
      * @return the project schema in json format
      */
-    public JsonObject getProjectSchema() {
+    private JsonObject getProjectSchemaAsJson() {
 
         String completionsEndPoint = "https://api.openai.com/v1/chat/completions";
 
@@ -59,12 +60,45 @@ public class ProjectBuilder {
             try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
                 String responseString = EntityUtils.toString(response.getEntity());
                 JsonObject responseJson = JsonParser.parseString(responseString).getAsJsonObject();
-                return responseJson;
+                JsonObject resJson = responseJson.getAsJsonArray("choices").get(0).getAsJsonObject().getAsJsonObject("message");
+                return resJson;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return new JsonObject();
+    }
+
+    public ProjectModel getProjectModel() {
+        JsonObject projectSchema = getProjectSchemaAsJson();
+    
+        String response = projectSchema.get("content").getAsString();
+        String[] responseFields = response.split("SEPARATOR");
+    
+        String projectName = this.getStringAfterColon(responseFields[0].trim().trim());
+        String projectDescription = this.getStringAfterColon(responseFields[1].trim());
+        String projectDeliverablesString = this.getStringAfterColon(responseFields[2].trim());
+        String[] projectDeliverables = projectDeliverablesString.split("\n- ");
+        for (int i = 0; i < projectDeliverables.length; i++) {
+            projectDeliverables[i] = projectDeliverables[i].trim();
+        }
+        String completionDate = this.getStringAfterColon(responseFields[3].trim());
+        String categoriesString = this.getStringAfterColon(responseFields[4].trim());
+        String[] categories;
+        if (categoriesString.isEmpty()) {
+            categories = new String[0];
+        } else {
+            categories = categoriesString.substring(1, categoriesString.length() - 1).split(", ");
+        }
+        String structureOverview = this.getStringAfterColon(responseFields[5]).trim();
+    
+        ProjectModel projectModel = new ProjectModel(projectName, projectDescription, projectDeliverables, completionDate, categories, structureOverview);
+        return projectModel;
+    }
+
+    private String getStringAfterColon(String input) {
+        String everythingBefore = input.split(":")[0].trim();
+        return input.substring(everythingBefore.length() + 1).trim();
     }
 }

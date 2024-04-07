@@ -19,14 +19,14 @@ public class ResponseModel {
      */
     public String getQuery() {
         StringBuilder responseBuilder = new StringBuilder();
-
+    
         responseBuilder.append("Generate a project with the following specifications:").append("\n");
         responseBuilder.append("Time Unit: ").append(responseParameters.getTimeUnit()).append("\n");
         responseBuilder.append("Difficulty Level: ").append(responseParameters.getDifficulty().getDifficultyWeight()
                 + " where 0 is the easiest, and 1 is the hardest").append("\n");
         responseBuilder.append("Expected Duration: ").append(responseParameters.getExpectedDuration()).append(" ");
         responseBuilder.append(responseParameters.getTimeUnit().toString().toLowerCase()).append("\n");
-
+    
         responseBuilder.append("Programming Language: ").append(responseParameters.getLanguage()).append("\n");
         responseBuilder.append("Categories: ").append("[");
         for (int i = 0; i < responseParameters.getCategories().length; i++) {
@@ -36,20 +36,19 @@ public class ResponseModel {
             }
         }
         responseBuilder.append("]").append("\n");
-
+    
         responseBuilder.append("Creativity Level: ").append(responseParameters.getCreativity())
                 .append(" (on a scale of 0 to 1)").append("\n");
-        
-        responseBuilder.append("\nPlease provide the following details for the generated project in json format").append("\n");
-        responseBuilder.append("1. Project Name").append("\n");
-        responseBuilder.append("2. Project Description").append("\n");
-        responseBuilder.append("3. Deliverables and Timeline").append("\n");
-        responseBuilder.append("   - List of deliverables with their names and due dates").append("\n");
-        responseBuilder.append("4. Expected Completion Date").append("\n");
-        responseBuilder.append("5. Skills to be Learned/Improved").append("\n");
-        responseBuilder.append("6. Project Structure Overview").append("\n");
-        responseBuilder.append("   - Brief outline of the project's components and approach").append("\n");
-
+    
+        responseBuilder.append("\nThe project should have the following fields:").append("\n");
+        responseBuilder.append("projectName (String)").append("\nSEPARATOR\n");
+        responseBuilder.append("projectDescription (String)").append("\nSEPARATOR\n");
+        responseBuilder.append("projectDeliverables (Array of Strings)").append("\nSEPARATOR\n");
+        responseBuilder.append("   - Each element should be in the format: 'Deliverable Name (Due Date)'").append("\nSEPARATOR\n");
+        responseBuilder.append("completionDate (String)").append("\nSEPARATOR\n");
+        responseBuilder.append("categories (Array of Strings)").append("\nSEPARATOR\n");
+        responseBuilder.append("structureOverview (String)").append("\n");
+    
         return responseBuilder.toString();
     }
 

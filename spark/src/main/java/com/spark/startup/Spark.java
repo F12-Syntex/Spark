@@ -1,10 +1,9 @@
 package com.spark.startup;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.spark.generator.ProjectBuilder;
 import com.spark.generator.ResponseGenerator;
 import com.spark.generator.ResponseModel;
+import com.spark.models.ProjectModel;
 import com.spark.parameters.Difficulty;
 
 public class Spark {
@@ -18,9 +17,8 @@ public class Spark {
                 .build();
 
         ProjectBuilder projectBuilder = new ProjectBuilder(responseModel);
-        JsonObject projectSchema = projectBuilder.getProjectSchema();
+        ProjectModel projectSchema = projectBuilder.getProjectModel();
 
-        GsonBuilder gsonBuilder = new GsonBuilder().setPrettyPrinting();
-        System.out.println(gsonBuilder.create().toJson(projectSchema));
+        System.out.println(projectSchema);        
     }
 }

@@ -1,8 +1,12 @@
 package com.spark.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@AllArgsConstructor
+@ToString
 public class ProjectModel {
     private final String projectName;
     private final String projectDescription;
@@ -10,14 +14,4 @@ public class ProjectModel {
     private final String completionDate;
     private final String[] categories;
     private final String structureOverview;
-
-
-    public ProjectModel(String projectName, String projectDescription, String[] projectDeliverables, String completionDate, String[] categories, String structureOverview) {
-        this.projectName = projectName;
-        this.projectDescription = projectDescription;
-        this.projectDeliverables = projectDeliverables;
-        this.completionDate = completionDate;
-        this.categories = categories;
-        this.structureOverview = structureOverview;
-    }
 }
